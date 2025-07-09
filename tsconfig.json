@@ -1,11 +1,16 @@
 {
   "compilerOptions": {
+    "jsx": "react-jsx",
+    "module": "esnext",
+    "target": "esnext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "baseUrl": "./src",
     "paths": {
       "@/*": ["*"]
-    },
-    "jsx": "react-jsx"
+    }
   },
-  "include": ["src"]
+  "include": ["src", "vite-env.d.ts"]
 }
 

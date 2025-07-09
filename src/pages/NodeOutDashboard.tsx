@@ -1,14 +1,27 @@
 // src/pages/NodeOutDashboard.tsx
+import React from "react";
+import { generateSpeech } from "@/lib/eleven";
+
 export default function NodeOutDashboard() {
+  function handleSpeak() {
+    generateSpeech("The Node Out engine is online.")
+      .then((url) => {
+        const audio = new Audio(url);
+        audio.play();
+      })
+      .catch((err) => console.error("Speech error:", err));
+  }
+
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center">
-      <h1 className="text-5xl font-bold mb-4">🚀 NODE OUT</h1>
-      <p className="text-lg mb-2">Automation that works while you sleep.</p>
-      <p className="mb-6">You’ve officially deployed the NODE OUT engine. Choose your next module:</p>
-      <div className="flex gap-4">
-        <a href="/radio" className="bg-white text-black px-4 py-2 rounded hover:bg-gray-200">Launch Voice Logs</a>
-        <button className="bg-white text-black px-4 py-2 rounded hover:bg-gray-200">Admin Panel</button>
-      </div>
+    <div className="text-white p-8">
+      <h1 className="text-4xl font-bold">NodeOut</h1>
+      <button
+        onClick={handleSpeak}
+        className="bg-[#800020] text-white px-4 py-2 rounded-xl mt-6"
+      >
+        🎤 Activate Voice
+      </button>
     </div>
   );
 }
+
