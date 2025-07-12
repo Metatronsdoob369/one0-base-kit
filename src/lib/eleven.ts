@@ -1,6 +1,6 @@
 // src/lib/eleven.ts
 export async function generateSpeech(text: string, voiceId = "Rachel") {
-  const apiKey = import.meta.env.VITE_ELEVEN_API_KEY;
+  const apiKey = import.meta.env.VITE_ELEVENLABS_API_KEY;
 
   const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
     method: "POST",
