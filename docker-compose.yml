@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  nodeout-app:
+    build: 
+      context: .
+      target: production
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+    # Security: Read-only root filesystem
+    read_only: true
+    # Security: No new privileges
+    security_opt:
+      - no-new-privileges:true
+    # Security: Drop capabilities
+    cap_drop:
+      - ALL
+    # Security: Add only necessary capabilities
+    cap_add:
+      - CHOWN
+      - SETUID
+      - SETGID
+    # Security: Memory limits
+    mem_limit: 512m
+    # Security: CPU limits
+    cpus: 0.5
+    # Security: Restart policy
+    restart: unless-stopped
+    # Security: Health check
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    # Security: Network isolation
+    networks:
+      - nodeout-network
+
+networks:
+  nodeout-network:
+    driver: bridge
+    # Security: Enable MAC address filtering
+    driver_opts:
+      com.docker.network.bridge.enable_icc: "false"
+      com.docker.network.bridge.enable_ip_masquerade: "true" 
